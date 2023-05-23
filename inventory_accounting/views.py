@@ -13,6 +13,20 @@ def add(request):
     return render(request, 'add.html')
 
 
+def report(request):
+    employees = Employee.objects.all()
+    sections = Section.objects.all()
+    premises = Premises.objects.all()
+    computers = Computer.objects.all()
+    context= {
+        "employees": employees,
+        "sections": sections,
+        "premises": premises,
+        "computers": computers,
+    }
+    return render(request, 'report.html', context)
+
+
 def form_add_section(request):
     return render(request, 'form_add_section.html')
 
@@ -272,3 +286,47 @@ def delete_premises(request, id):
     except Premises.DoesNotExist:
         return HttpResponseNotFound("<h2>Section not found</h2>")
 
+
+def date_export_xls(request):
+    if request.method == 'POST':
+        date_start = request.POST.get('date_start')
+        date_end = request.POST.get('date_end')
+        response = HttpResponse(content_type='application/inventory_accounting')
+        response['Content-Disposition'] = 'attachment; filename="computer.xls"'
+ 
+        wb = xlwt.Workbook(encoding='utf-8')
+
+        main_ws = wb.add_sheet('Computer')
+
+        # Sheet header, first row
+        row_num = 0
+
+        font_style = xlwt.easyxf('font: bold 1;alignment: wrap True; align: vert centre, horiz centre; border: top thick, right thick, bottom thick, left thick; align: wrap 1;')
+ 
+        main_columns = ['ID','Дата постановки на учет', 'ФИО сотрудника', 'Поставщик ','Производитель', 'Процессор', 'Видеокарта', 'ОЗУ', 'ПЗУ', 'Статус']
+
+        for col_num in range(len(main_columns)):
+            main_ws.write(row_num, col_num, main_columns[col_num], font_style)
+ 
+
+        # Sheet body, remaining rows
+        main_ws.col(0).width = 7000
+        main_ws.col(1).width = 20000
+        main_ws.col(2).width = 7000
+        main_ws.col(3).width = 10000
+
+
+        style = xlwt.easyxf(
+            'font: bold 0, height 200; alignment: wrap True; border: top thick, right thick, bottom thick, left thick')
+
+        rows = (Computer.objects.all().values_list('computer_id', 'accounting_date', 'c_employee_name', 'c_supplier_company_name', 
+                                              'manufacturer', 'cpu', 'gpu', 'ram', 'rom', 'status').filter())
+
+        for row in rows:
+            row_num += 1
+            for col_num in range(len(row)):
+                main_ws.write(row_num, col_num, row[col_num], style)
+    
+    
+        wb.save(response)
+        return response

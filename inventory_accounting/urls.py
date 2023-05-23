@@ -24,6 +24,8 @@ urlpatterns = [
 
     path('edit', views.edit, name='edit'),
 
+    path('report', views.report, name='report'),
+
     path('form_add_section', views.form_add_section, name='form_add_section'),
 
     path('add_section', views.add_section, name='add_section'),
@@ -73,4 +75,6 @@ urlpatterns = [
     path('form_edit_premises/<int:id>/', views.form_edit_premises),
 
     path('form_edit_computer/<int:id>/', views.form_edit_computer),
+
+    path('date_export_xls', views.date_export_xls, name='date_export_xls'),
 ]

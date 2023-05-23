@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static "form.css" %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВЫВОД В EXCEL</title>
+</head>
+
+<body>
+    <form method="post" action="{% url 'date_export_xls' %}" class="form">
+        {% csrf_token %}
+            <h1 align="middle">Создание отчетов</h1>      
+            <hr>
+            <h1 align="middle">Отчет по компьютерам, которые были поставлены на учет в определенный период</h1>
+                
+            <div class="form_group">
+                <label class="form_label">Начало периода</label>
+                <input class="form_input" type="date" id="date_start" name="date_start">
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Конец периода</label>
+                <input class="form_input" type="date" id="date_end" name="date_end">
+            </div>
+
+            <a><button class="form-button">СОЗДАТЬ ОТЧЕТ XLSX</button></a>
+            </div>
+
+            <hr>
+        </form>
+
+    
+</body>
+
+</html>
