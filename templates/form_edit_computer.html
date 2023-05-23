@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'form.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИЗМЕНИТЬ ПК</title>
+</head>
+
+<body>
+        <form method="post" class="form">
+            <h1 class="form_title">Форма изменения ПК</h1>
+            {% csrf_token %}
+
+            <div class="form_group">
+                <label class="form_label">Идентификационный номер ПК</label>
+                <input class="form_input" type="text" id="computer_id" name="computer_id" value="{{computer.computer_id}}" maxlength="10" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">ФИО ответственного сотрудника</label>
+                <select name="c_employee_name" id="c_employee_name" value="{{computer.c_employee_name}}">
+                        {% for element in employees %}
+                    <option>{{element.name}} </option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Номер помещения</label>
+                <select name="c_premises_id" id="c_premises_id" value="{{computer.c_premises_id}}">
+                        {% for element in premises %}
+                    <option>{{element.premises_id}} </option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Поставщик</label>
+                <select name="c_supplier_company_name" id="c_supplier_company_name" value="{{computer.c_supplier_company_name}}">
+                        {% for element in suppliers %}
+                    <option>{{element.company_name}} </option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Дата ввода в эксплуатацию</label>
+                <input class="form_input" type="text" id="start_date" name="start_date" value="{{computer.start_date|date:"Y-m-d"}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Дата постановки на учет</label>
+                <input class="form_input" type="text" id="accounting_date" name="accounting_date" value="{{computer.accounting_date|date:"Y-m-d"}}" maxlength="10" required>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">Срок амортизации</label>
+                <input class="form_input" type="text" id="amortisation_period" name="amortisation_period" value="{{computer.amortisation_period}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Производитель</label>
+                <input class="form_input" type="text" id="manufacturer" name="manufacturer" value="{{computer.manufacturer}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Процессор</label>
+                <input class="form_input" type="text" id="cpu" name="cpu" value="{{computer.cpu}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Видеокарта</label>
+                <input class="form_input" type="text" id="gpu" name="gpu" value="{{computer.gpu}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Оперативная память</label>
+                <input class="form_input" type="text" id="ram" name="ram" value="{{computer.ram}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Накопитель</label>
+                <input class="form_input" type="text" id="rom" name="rom" value="{{computer.rom}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Cостояние устройства</label>
+                <select name="status" id="status" value="{{computer.status}}">
+                    <option value="Исправно">Исправно</option>
+                    <option value="Неисправно">Неисправно</option>
+                    <option value="В ремонте">В ремонте</option>
+                </select>
+            </div>
+
+            <a><button class="form-button" type="submit">Изменить</button></a>
+        </form>
+</body>
+</html>

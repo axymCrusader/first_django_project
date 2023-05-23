@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'form.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДОБАВИТЬ СОТРУДНИКА</title>
+</head>
+
+<body>
+        <form method="post" action="{% url 'add_employee' %}" class="form">
+            <h1 class="form_title">Форма добавления сотрудника</h1>
+            {% csrf_token %}
+
+            <div class="form_group">
+                <label class="form_label">Идентификационный номер сотрудника</label>
+                <input class="form_input" type="text" id="employee_id" name="employee_id" placeholder="Пример: С123456789" maxlength="10" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Ф И.О.</label>
+                <input class="form_input" type="text" id="name" name="name" placeholder="Иванов И.И." required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Пол</label>
+                <select name="gender" id="gender">
+                    <option value="M">M</option>
+                    <option value="Ж">Ж</option>
+                </select>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Дата рождения</label>
+                <input class="form_input" type="date" id="birth_date" name="birth_date" required>
+            </div>
+
+            <a><button class="form-button" type="submit">Добавить</button></a>
+        </form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'form.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДОБАВИТЬ ПОСТАВЩИКА</title>
+</head>
+
+<body>
+        <form method="post" action="{% url 'add_supplier' %}" class="form">
+            <h1 class="form_title">Форма добавления поставщика</h1>
+            {% csrf_token %}
+
+            <div class="form_group">
+                <label class="form_label">Идентификационный номер поставщика</label>
+                <input class="form_input" type="text" id="supplier_id" name="supplier_id" placeholder="Пример: О123456789" maxlength="10" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Название компании</label>
+                <input class="form_input" type="text" id="company_name" name="company_name" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Город</label>
+                <input class="form_input" type="text" id="City" name="City" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">ИНН</label>
+                <input class="form_input" type="text" id="inn" name="inn" maxlength="10" required>
+            </div>
+
+            <a><button class="form-button" type="submit">Добавить</button></a>
+        </form>
+</body>
+</html>

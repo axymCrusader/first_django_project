@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>РЕДАКТИРОВАНИЕ ОТДЕЛА</title>
+    </head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <body>
+        <h1>Выберете запись о отделе, которую хотите удалить/редактировать </h1>
+        <div>
+            <table style="width:100%">
+                <thead>
+                    <th>ID</th>
+                    <th>Название отдела</th>
+                    <th>-------------</th>
+                </thead>
+                {% for element in sections %}
+                <tr>
+                    <td>{{ element.section_id }}</td>
+                    <td>{{ element.section_name }}</td>
+                    <td><a href="form_edit_section/{{element.id}}">Изменить</a>|<a href="delete_section/{{element.id}}">Удалить</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

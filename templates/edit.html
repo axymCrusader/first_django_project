@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>РЕДАКТИРОВАНИЕ</title>
+    </head>
+
+    <body>
+        <div>
+            <hr>
+            <p class="text-format" align="middle">Выберете то, что вы хотите редактировать</p>
+
+            <div class="container">
+                <a href="{% url 'edit_computer' %}" class="floating-vertically-button">Компьютер</a>
+            </div>
+
+            <div class="container">
+                <a href="{% url 'edit_section' %}" class="floating-vertically-button">Отдел</a>
+            </div>
+
+            <div class="container">
+                <a href="{% url 'edit_premises' %}" class="floating-vertically-button">Помещение</a>
+            </div>
+
+            <div class="container">
+                <a href="{% url 'edit_employee' %}" class="floating-vertically-button">Сотрудник</a>
+            </div>
+
+            <div class="container">
+                <a href="{% url 'edit_supplier' %}" class="floating-vertically-button">Поставщик</a>
+            </div>
+
+            <div class="container">
+                <a href="{% url 'index' %}" class="floating-vertically-button">На главную</a>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

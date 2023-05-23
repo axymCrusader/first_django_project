@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>РЕДАКТИРОВАНИЕ КОМПЬЮТЕРОВ</title>
+    </head>
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    </style>
+
+    <body>
+    <hr>
+    <h1>Выберете запись о компьютере, которую хотите удалить/редактировать </h1>
+        <div>
+            <table style="width:100%">
+                <thead>
+                    <th>ID</th>
+                    <th>ФИО_Ответственного_Сотрудника</th>
+                    <th>Номер_Помещения </th>
+                    <th>Поставщик</th>
+                    <th>Дата начала эксплуатации</th>
+                    <th>Дата постановки на учет</th>
+                    <th>Период амортизации, м.</th>
+                    <th>Производитель</th>
+                    <th>Процессор</th>
+                    <th>Видеокарта</th>
+                    <th>ОЗУ, гб</th>
+                    <th>ПЗУб тб</th>
+                    <th>Статус</th>
+                    <th>-------------</th>
+                </thead>
+                {% for element in computers %}
+                <tr>
+                    <td>{{ element.computer_id }}</td>
+                    <td>{{ element.c_employee_name }}</td>
+                    <td>{{ element.c_premises_id }}</td>
+                    <td>{{ element.c_supplier_company_name }}</td>
+                    <td>{{ element.start_date }}</td>
+                    <td>{{ element.accounting_date }}</td>
+                    <td>{{ element.amortisation_period }}</td>
+                    <td>{{ element.manufacturer }}</td>
+                    <td>{{ element.cpu }}</td>
+                    <td>{{ element.gpu }}</td>
+                    <td>{{ element.ram }}</td>
+                    <td>{{ element.rom }}</td>
+                    <td>{{ element.status }}</td>
+                    <td><a href="form_edit_computer/{{element.id}}">Изменить</a> | <a href="delete_computer/{{element.id}}">Удалить</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

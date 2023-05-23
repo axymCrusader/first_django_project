@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'form.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДОБАВИТЬ ОТДЕЛ</title>
+</head>
+
+<body>
+        <form method="post" action="{% url 'add_section' %}" class="form">
+            <h1 class="form_title">Форма добавления отдела</h1>
+            {% csrf_token %}
+
+            <div class="form_group">
+                <label class="form_label">Идентификационный номер отдела</label>
+                <input class="form_input" type="text" id="section_id" name="section_id" placeholder="Пример: П123456789" maxlength="10" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Название отдела</label>
+                <input class="form_input" type="text" id="section_name" name="section_name" required>
+            </div>
+
+            <a><button class="form-button" type="submit">Добавить</button></a>
+        </form>
+</body>
+</html>

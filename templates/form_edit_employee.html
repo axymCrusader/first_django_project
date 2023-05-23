@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'form.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИЗМЕНИТЬ СОТРУДНИКА</title>
+</head>
+
+<body>
+        <form method="POST"  class="form">
+            <h1 class="form_title">Форма изменения сотрудника</h1>
+            {% csrf_token %}
+
+            <div class="form_group">
+                <label class="form_label">Идентификационный номер сотрудника</label>
+                <input class="form_input" type="text" id="employee_id" name="employee_id" placeholder="Пример: С123456789" value = "{{employee.employee_id}}" maxlength="10" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Ф И.О.</label>
+                <input class="form_input" type="text" id="name" name="name" value = "{{employee.name}}" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Пол</label>
+                <select name="gender" id="gender" value = "{{employee.gender}}">
+                    <option value="M">M</option>
+                    <option value="Ж">Ж</option>
+                </select>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Дата рождения</label>
+                <input class="form_input" type="text" id="birth_date" name="birth_date" value = "{{employee.birth_date|date:"Y-m-d"}}" required>
+            </div>
+
+            <a><button class="form-button" type="submit">Изменить</button></a>
+        </form>
+</body>
+</html>
+

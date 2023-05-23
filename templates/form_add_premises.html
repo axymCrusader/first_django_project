@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'form.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДОБАВИТЬ ПОМЕЩЕНИЕ</title>
+</head>
+
+<body>
+        <form method="post" action= "{% url 'add_premises' %}" class="form">
+            <h1 class="form_title">Форма добавления помещения</h1>
+            {% csrf_token %}
+
+            <div class="form_group">
+                <label class="form_label">Идентификационный номер помещения</label>
+                <input class="form_input" type="text" id="premises_id" name="premises_id" placeholder="Пример: 209" maxlength="3" required>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">Наименование отдела</label>
+                <select name="p_section_name" id="p_section_name">
+                        {% for element in sections %}
+                    <option>{{element.section_name}} </option>
+                        {% endfor %}
+                </select>
+            </div>
+            <a><button class="form-button" type="submit">Добавить</button></a>
+        </form>
+</body>
+</html>
