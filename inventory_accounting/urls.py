@@ -77,4 +77,6 @@ urlpatterns = [
     path('form_edit_computer/<int:id>/', views.form_edit_computer),
 
     path('date_export_xls', views.date_export_xls, name='date_export_xls'),
+
+    path('employee_export_xls', views.employee_export_xls, name='employee_export_xls')
 ]

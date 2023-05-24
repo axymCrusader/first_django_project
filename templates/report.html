@@ -33,6 +33,25 @@
             <hr>
         </form>
 
+        <form method="post" action="{% url 'employee_export_xls' %}" class="form">
+            {% csrf_token %}
+                <hr>
+                <h1 align="middle">Отчет по компьютерам, которые были закреплены за определенным сотрудником</h1>
+                    
+                <div class="form_group">
+                    <label class="form_label">Сотрудник</label>
+                    <select name="name" id="name">
+                            {% for element in employees %}
+                        <option>{{element.name}} </option>
+                            {% endfor %}
+                    </select>
+                </div>
+    
+                <a><button class="form-button">СОЗДАТЬ ОТЧЕТ XLSX</button></a>
+                </div>
+
+                <hr>
+            </form>
     
 </body>
 

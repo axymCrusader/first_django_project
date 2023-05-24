@@ -292,40 +292,127 @@ def date_export_xls(request):
         date_start = request.POST.get('date_start')
         date_end = request.POST.get('date_end')
         response = HttpResponse(content_type='application/inventory_accounting')
-        response['Content-Disposition'] = 'attachment; filename="computer.xls"'
+        response['Content-Disposition'] = 'attachment; filename="computer.xlsx"'
  
         wb = xlwt.Workbook(encoding='utf-8')
 
         main_ws = wb.add_sheet('Computer')
 
-        # Sheet header, first row
         row_num = 0
 
-        font_style = xlwt.easyxf('font: bold 1;alignment: wrap True; align: vert centre, horiz centre; border: top thick, right thick, bottom thick, left thick; align: wrap 1;')
+        head_style = xlwt.easyxf('font: bold 1;alignment: wrap True; align: vert centre, horiz centre; border: top thick, right thick, bottom thick, left thick; align: wrap 1;')
  
-        main_columns = ['ID','Дата постановки на учет', 'ФИО сотрудника', 'Поставщик ','Производитель', 'Процессор', 'Видеокарта', 'ОЗУ', 'ПЗУ', 'Статус']
+        main_columns = ['ID','Дата постановки на учет', 'ФИО сотрудника', 'Поставщик ','Производитель', 'Процессор', 'Видеокарта', 'ОЗУ, гб.', 'ПЗУ, тб.', 'Статус']
 
         for col_num in range(len(main_columns)):
-            main_ws.write(row_num, col_num, main_columns[col_num], font_style)
+            main_ws.write(row_num, col_num, main_columns[col_num], head_stylee)
  
 
-        # Sheet body, remaining rows
-        main_ws.col(0).width = 7000
-        main_ws.col(1).width = 20000
+        main_ws.col(0).width = 3000
+        main_ws.col(1).width = 10000
         main_ws.col(2).width = 7000
         main_ws.col(3).width = 10000
+        main_ws.col(4).width = 10000
+        main_ws.col(5).width = 10000
+        main_ws.col(6).width = 10000
 
 
-        style = xlwt.easyxf(
+        date_style = xlwt.XFStyle()
+        date_style.num_format_str='dd/mm/yyyy'
+        
+        font = xlwt.Font()
+        font.bold = False
+        font.height = 200
+        date_style.font = font
+        
+        borders = xlwt.Borders()
+        borders.left = 2
+        borders.right = 2
+        borders.top = 2
+        borders.bottom = 2
+
+        date_style.borders = borders                
+
+        main_style = xlwt.easyxf(
             'font: bold 0, height 200; alignment: wrap True; border: top thick, right thick, bottom thick, left thick')
 
-        rows = (Computer.objects.all().values_list('computer_id', 'accounting_date', 'c_employee_name', 'c_supplier_company_name', 
-                                              'manufacturer', 'cpu', 'gpu', 'ram', 'rom', 'status').filter())
+        rows_table = (Computer.objects.all().values_list('computer_id', 'accounting_date', 'c_employee_name', 'c_supplier_company_name', 
+                                              'manufacturer', 'cpu', 'gpu', 'ram', 'rom', 'status').filter(accounting_date__range=[date_start,date_end]))
 
-        for row in rows:
+        for row in rows_table:
             row_num += 1
             for col_num in range(len(row)):
-                main_ws.write(row_num, col_num, row[col_num], style)
+                if (col_num == 1):
+                    main_ws.write(row_num, col_num, row[col_num], date_style)
+                else:
+                    main_ws.write(row_num, col_num, row[col_num], main_style)
+
+    
+    
+        wb.save(response)
+        return response
+
+
+def employee_export_xls(request):
+    if request.method == 'POST':
+        employee_name = request.POST.get('name')
+        response = HttpResponse(content_type='application/inventory_accounting')
+        response['Content-Disposition'] = 'attachment; filename="computer.xlsx"'
+ 
+        wb = xlwt.Workbook(encoding='utf-8')
+
+        main_ws = wb.add_sheet('Computer')
+
+        row_num = 0
+
+        head_style = xlwt.easyxf('font: bold 1;alignment: wrap True; align: vert centre, horiz centre; border: top thick, right thick, bottom thick, left thick; align: wrap 1;')
+ 
+        main_columns = ['ID', 'ФИО сотрудника', 'Дата начала эксплуатации', 'Дата постановки на учет', 'Поставщик', 'Производитель', 'Процессор', 'Видеокарта', 'ОЗУ, гб.', 'ПЗУ, тб.', 'Статус']
+
+        for col_num in range(len(main_columns)):
+            main_ws.write(row_num, col_num, main_columns[col_num], head_style)
+ 
+
+        main_ws.col(0).width = 3000
+        main_ws.col(1).width = 10000
+        main_ws.col(2).width = 10000
+        main_ws.col(3).width = 10000
+        main_ws.col(4).width = 10000
+        main_ws.col(5).width = 10000
+        main_ws.col(6).width = 10000
+        main_ws.col(7).width = 10000
+
+
+        date_style = xlwt.XFStyle()
+        date_style.num_format_str='dd/mm/yyyy'
+        
+        font = xlwt.Font()
+        font.bold = False
+        font.height = 200
+        date_style.font = font
+        
+        borders = xlwt.Borders()
+        borders.left = 2
+        borders.right = 2
+        borders.top = 2
+        borders.bottom = 2
+
+        date_style.borders = borders                
+
+        main_style = xlwt.easyxf(
+            'font: bold 0, height 200; alignment: wrap True; border: top thick, right thick, bottom thick, left thick')
+
+        rows_table = (Computer.objects.all().values_list('computer_id', 'c_employee_name', 'start_date', 'accounting_date', 'c_supplier_company_name', 
+                                              'manufacturer', 'cpu', 'gpu', 'ram', 'rom', 'status').filter(c_employee_name=employee_name))
+
+        for row in rows_table:
+            row_num += 1
+            for col_num in range(len(row)):
+                if (col_num == 2 or col_num == 3):
+                    main_ws.write(row_num, col_num, row[col_num], date_style)
+                else:
+                    main_ws.write(row_num, col_num, row[col_num], main_style)
+
     
     
         wb.save(response)

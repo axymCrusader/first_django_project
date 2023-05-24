@@ -23,7 +23,7 @@ class Employee(models.Model):
 
 class Premises(models.Model):
     premises_id = models.CharField(max_length=3)
-    p_section_name = models.CharField(max_length=50) #
+    p_section_name = models.CharField(max_length=50) # тут должен быть внешний ключ
 
     def __str__(self):
         return self.premises_id
@@ -31,9 +31,9 @@ class Premises(models.Model):
 
 class Computer(models.Model):
     computer_id = models.CharField(max_length=10)
-    c_employee_name = models.CharField(max_length=40) #
-    c_premises_id = models.CharField(max_length=10) #
-    c_supplier_company_name = models.CharField(max_length=40) #
+    c_employee_name = models.CharField(max_length=40) # тут должен быть внешний ключ 
+    c_premises_id = models.CharField(max_length=10) # тут должен быть внешний ключ
+    c_supplier_company_name = models.CharField(max_length=40) # тут должен быть внешний ключ
     start_date = models.DateField(auto_now=False)
     accounting_date = models.DateField(auto_now=False)
     amortisation_period = models.IntegerField()
