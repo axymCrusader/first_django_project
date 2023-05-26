@@ -305,7 +305,7 @@ def date_export_xls(request):
         main_columns = ['ID','Дата постановки на учет', 'ФИО сотрудника', 'Поставщик ','Производитель', 'Процессор', 'Видеокарта', 'ОЗУ, гб.', 'ПЗУ, тб.', 'Статус']
 
         for col_num in range(len(main_columns)):
-            main_ws.write(row_num, col_num, main_columns[col_num], head_stylee)
+            main_ws.write(row_num, col_num, main_columns[col_num], head_style)
  
 
         main_ws.col(0).width = 3000
